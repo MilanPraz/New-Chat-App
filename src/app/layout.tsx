@@ -4,6 +4,7 @@ import "./globals.css";
 import QueryProvider from "../../providers/QueryProvider";
 import dynamic from "next/dynamic";
 import { Toaster } from "react-hot-toast";
+import { AuthProvider } from "../../providers/AuthProvider";
 // import ProgressBar from "../../common/ProgressBar";
 
 const ProgressBar = dynamic(() => import("../../common/ProgressBar"), {
@@ -28,10 +29,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={nunito.className}>
-        <ProgressBar />
-        <QueryProvider>{children}</QueryProvider>
-        <Toaster toastOptions={{ position: "top-right" }} />
+      <body className={nunito.className} style={{ background: "black" }}>
+        <QueryProvider>
+          <AuthProvider>
+            <ProgressBar />
+            {children}
+            <Toaster toastOptions={{ position: "top-right" }} />
+          </AuthProvider>
+        </QueryProvider>
       </body>
     </html>
   );

@@ -12,7 +12,10 @@ import FormError from "../form/FormError";
 import { useLoginRegister } from "../../../hooks/mutations/auth";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
+import { useAuth } from "../../../providers/AuthProvider";
+import { loginHai } from "../../../lib";
 const Login = () => {
+  const { login } = useAuth();
   const {
     register,
     handleSubmit,
@@ -23,18 +26,24 @@ const Login = () => {
 
   const router = useRouter();
   const { mutateAsync, isPending } = useLoginRegister();
-  const onSubmit = (formdata: TLoginSchema) => {
-    const promise = mutateAsync(formdata).then((res) => {
+  const onSubmit = async (formdata: TLoginSchema) => {
+    // const promise = mutateAsync(formdata).then((res) => {
+    //   router.push("/");
+    //   console.log("Submitted");
+    //   console.log("Submitted", res);
+    //   login({ user: res.user, accessToken: res.token });
+    // });
+    const res = await loginHai(formdata);
+    console.log("yeta form submit bata", res);
+    if (res?.status === 200) {
+      toast.success("Successfully LoggedIn");
       router.push("/");
-      console.log("Submitted");
-      console.log("Submitted", res);
-    });
-
-    toast.promise(promise, {
-      loading: "Wait for while...",
-      success: "Successfully Logged In",
-      error: "Something Went Wrong",
-    });
+    }
+    // toast.promise(promise, {
+    //   loading: "Wait for while...",
+    //   success: "Successfully Logged In",
+    //   error: "Something Went Wrong",
+    // });
   };
 
   return (

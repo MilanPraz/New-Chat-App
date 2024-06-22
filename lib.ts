@@ -1,0 +1,95 @@
+"use server";
+import { postRequest } from "@/lib/fetch";
+import { cookies } from "next/headers";
+import { SignJWT, jwtVerify } from "jose";
+import { NextRequest, NextResponse } from "next/server";
+import { parse } from "path";
+
+const key = new TextEncoder().encode(process.env.JWT_SECRET_KEY);
+
+export async function encrypt(payload: any) {
+  return await new SignJWT(payload)
+    .setProtectedHeader({ alg: "HS256" })
+    .setIssuedAt()
+    .setExpirationTime("100s")
+    .sign(key);
+}
+
+export async function decrypt(hashed: string): Promise<any> {
+  try {
+    const { payload } = await jwtVerify(hashed, key, { algorithms: ["HS256"] });
+
+    // console.log("decrpt ko hai", payload);
+    const user = payload;
+    return user;
+  } catch (err) {
+    console.log("JWT error ", err);
+    throw new Error("Invalid Token");
+  }
+}
+
+export async function loginHai(payload: any) {
+  //verify credentials and then get the user
+
+  const res = await postRequest({
+    endpoint: "/api/user/login",
+    payload,
+  });
+  const userDetail = res.user;
+
+  console.log("login paxiiii", res.user);
+  console.log("-------------------------------");
+  //in res i get user's detail and token
+
+  const expires = new Date(Date.now() + 100 * 1000); // here we set expire to 10sec
+  const session = await encrypt({ userDetail, expires });
+
+  //save the session in a cookie
+  cookies().set("session", session, { expires, httpOnly: true });
+  //httponly means we can only read this in server
+  console.log("response lib", res);
+
+  return {
+    status: 200,
+    message: "Successfully LoggedIn",
+  };
+}
+
+export async function logoutHai() {
+  cookies().set("session", "", { expires: new Date(0) });
+}
+
+export async function getSession() {
+  const session = cookies().get("session")?.value;
+  console.log("session xa tw?", session);
+  if (!session) return null;
+  return await decrypt(session);
+}
+
+export async function updateSession(req: NextRequest) {
+  console.log("-----------update vitraa");
+  const session = req.cookies.get("session")?.value;
+
+  console.log("updatesession vitraaaaa", session);
+  if (!session) return;
+
+  //Refresh the session so it doesn't expires
+  //if there is session then at every refresh set a new session in cookie
+
+  const parsed = await decrypt(session); //in parsed it contains user detail token etc
+  parsed.expires = new Date(Date.now() + 100 * 1000);
+  const res = NextResponse.next();
+
+  //   res.cookies.set({
+  //     name: "session",
+  //     value: await encrypt(parsed),
+  //     httpOnly: true,
+  //     expires: parsed.expires,
+  //   });
+  res.cookies.set("session", await encrypt(parsed), {
+    expires: parsed.expires,
+    httpOnly: true,
+  });
+
+  return res;
+}
