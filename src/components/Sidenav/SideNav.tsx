@@ -3,15 +3,17 @@ import React from "react";
 import { menus } from "../../../constants/sidenavbar";
 import Link from "next/link";
 import { Home } from "lucide-react";
-import { usePathname } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
+import { deleteSession } from "@/lib";
 
 export default function SideNav() {
   const pathname = usePathname();
 
-  function handleLogout() {
+  async function handleLogout() {
     console.log("logout");
+    await deleteSession();
   }
 
   return (
