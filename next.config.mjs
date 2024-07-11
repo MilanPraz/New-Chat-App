@@ -9,7 +9,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    // domains: ["chat-app-backend-fwr0.onrender.com"],
+    domains: ["chat-app-backend-fwr0.onrender.com"],
 
     remotePatterns: [
       {
