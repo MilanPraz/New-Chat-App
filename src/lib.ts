@@ -12,7 +12,7 @@ export async function encrypt(payload: any) {
   return await new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
-    .setExpirationTime("100s") //'1day' normally
+    .setExpirationTime("100h") //'1day' normally
     .sign(key);
 }
 
@@ -45,7 +45,7 @@ export async function loginHai(payload: any) {
   //in res i get user's detail and token
 
   // THIS IS SESSION EXPIRY TIME
-  const expires = new Date(Date.now() + 100 * 1000); // here we set expire to 10sec
+  const expires = new Date(Date.now() + 60 * 60 * 1000); // here we set expire to 10sec
   //  IN SESSION THERE IS HASED VALUE OF THAT USER DETAILS
   const session = await encrypt({ ...userDetail, expires });
 

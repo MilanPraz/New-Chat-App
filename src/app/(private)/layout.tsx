@@ -1,8 +1,15 @@
 import SideNav from "@/components/Sidenav/SideNav";
 import React from "react";
-import { SessionProvider } from "../../../providers/SessionProvider";
 import { getSession } from "@/lib";
+import dynamic from "next/dynamic";
 
+const SessionProvider = dynamic(
+  () =>
+    import("../../../providers/SessionProvider").then(
+      (module) => module.SessionProvider
+    ),
+  { ssr: false }
+);
 export default async function layout({
   children,
 }: {

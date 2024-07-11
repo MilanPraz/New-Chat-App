@@ -5,14 +5,19 @@ import Link from "next/link";
 import { Home } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { Button } from "../ui/button";
 
 export default function SideNav() {
   const pathname = usePathname();
 
+  function handleLogout() {
+    console.log("logout");
+  }
+
   return (
     <div>
-      <div className=" h-screen bg-mybg sticky left-0 top-0 hidden w-[200px] px-2 pt-4 md:flex flex-col items-start">
-        <ul className=" w-full   pl-4  text-center text-white text-xs  space-y-8 mt-8 cursor-pointer">
+      <div className="  h-[100vh] justify-between bg-mybg sticky left-0 top-0 hidden w-[200px] px-2 py-4 md:flex flex-col items-start">
+        <ul className=" w-full     text-center text-white text-sm  space-y-8 mt-8 cursor-pointer">
           {menus.map((m: any, idx: number) => {
             const isActive = pathname === m.to;
             return (
@@ -35,6 +40,9 @@ export default function SideNav() {
             );
           })}
         </ul>
+        <div className=" mb-10">
+          <Button onClick={() => handleLogout()}>Logout</Button>
+        </div>
       </div>
     </div>
   );
