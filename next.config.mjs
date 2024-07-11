@@ -4,9 +4,6 @@
 //     domains: ["chat-app-backend-fwr0.onrender.com"],
 //   },
 // };
-
-// next.config.mjs
-/** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
     domains: ["chat-app-backend-fwr0.onrender.com"],
