@@ -24,7 +24,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["chat-app-backend-fwr0.onrender.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "chat-app-backend-fwr0.onrender.com",
+        pathname: "/**",
+      },
+    ],
   },
   async headers() {
     return [

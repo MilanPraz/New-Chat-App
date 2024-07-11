@@ -15,14 +15,13 @@ export default function UserCard() {
     <div>
       <H3>Account Details</H3>
       <div>
-        <Image
+        <img
           src={imageUrlConverter(user?.pic)}
           height={100}
           alt="user"
           className=" h-40 w-40 rounded-full object-cover object-center"
           width={100}
           loading="lazy"
-          decoding="async"
         />
         <H3>{user?.name}</H3>
         <p className=" text-xs text-muted">{user?.email}</p>
