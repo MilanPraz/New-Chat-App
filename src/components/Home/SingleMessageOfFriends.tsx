@@ -7,7 +7,7 @@ export default function SingleMessageOfFriends({ user }: { user: any }) {
   return (
     <div className=" rounded-lg flex cursor-pointer items-center overflow-auto gap-2 bg-mybg hover:bg-mylightdark p-2 w-fit pr-20">
       <div>
-        <Image
+        <img
           src={imageUrlConverter(pic)}
           height={40}
           width={40}

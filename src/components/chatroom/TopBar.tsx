@@ -14,7 +14,7 @@ export default function TopBar() {
       {" "}
       <div className=" rounded-full flex justify-between items-center px-4 py-2 bg-mylightdark">
         <div className=" flex items-center gap-4">
-          <Image
+          <img
             src={imageUrlConverter(c?.pic)}
             alt="user"
             height={40}
