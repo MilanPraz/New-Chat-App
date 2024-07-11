@@ -84,7 +84,7 @@ export async function updateSession(req: NextRequest) {
   //if there is session then at every refresh set a new session in cookie
 
   const parsed = await decrypt(session); //in parsed it contains user detail token etc
-  parsed.expires = new Date(Date.now() + 100 * 1000);
+  parsed.expires = new Date(Date.now() + 10 * 60 * 60 * 1000);
   const res = NextResponse.next();
 
   //   res.cookies.set({
