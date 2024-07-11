@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import SingleChat from "./SingleChat";
 import { useGetChat } from "../../../hooks/query/chat.query";
 import { useAuth } from "../../../providers/AuthProvider";
@@ -25,13 +25,31 @@ export default function ChatList() {
     receiverId: paramsId?.id,
   };
 
-  console.log("chatRoomId xa?", chatRoomId);
   const { mutateAsync } = usePostAChat();
-  const { data: AllChats, isLoading } = useGetChat({
+  const {
+    data: AllChats,
+    isLoading,
+    isSuccess,
+  } = useGetChat({
     id: chatRoomId || "new",
     params,
   });
-  console.log("chat haiiiii", AllChats);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  // Scroll to bottom function
+  const scrollToBottom = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  };
+  useEffect(() => {
+    if (isSuccess) {
+      scrollToBottom();
+    }
+  }, [isSuccess, AllChats]);
+
+  console.log("chatRoomId xa?", chatRoomId);
+
+  // console.log("chat haiiiii", AllChats);
 
   function handleSubmit(e: any) {
     e.preventDefault();
@@ -59,7 +77,10 @@ export default function ChatList() {
   if (isLoading) return <p className=" text-white">Chat loading....</p>;
   return (
     <div className="  ">
-      <div className=" w-full   flex flex-col gap-4 h-[75vh]">
+      <div
+        ref={scrollRef}
+        className=" w-full  pb-2  flex flex-col gap-4 overflow-auto pr-4 h-[75vh]"
+      >
         {AllChats?.map((c: any, idx: number) => {
           return <SingleChat user={user} key={idx} chat={c} />;
         })}
