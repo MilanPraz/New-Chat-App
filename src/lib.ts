@@ -85,12 +85,12 @@ export async function updateSession(req: NextRequest) {
   parsed.expires = new Date(Date.now() + 10 * 60 * 60 * 1000);
   const res = NextResponse.next();
 
-  //   res.cookies.set({
-  //     name: "session",
-  //     value: await encrypt(parsed),
-  //     httpOnly: true,
-  //     expires: parsed.expires,
-  //   });
+  // res.cookies.set({
+  //   name: "session",
+  //   value: await encrypt(parsed),
+  //   httpOnly: true,
+  //   expires: parsed.expires,
+  // });
   // res.cookies.set("session", await encrypt(parsed), {
   //   expires: parsed.expires,
   //   httpOnly: true,
