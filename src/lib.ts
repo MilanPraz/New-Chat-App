@@ -42,8 +42,6 @@ export async function loginHai(payload: any) {
     token: res.token,
   };
 
-  console.log("login paxiiii", userDetail);
-  console.log("-------------------------------");
   //in res i get user's detail and token
 
   // THIS IS SESSION EXPIRY TIME
@@ -54,7 +52,7 @@ export async function loginHai(payload: any) {
   //save the session in a cookie
   cookies().set("session", session, { expires, httpOnly: true });
   //httponly means we can only read this in server
-  console.log("response lib", res);
+  // console.log("response lib", res);
 
   return {
     status: 200,

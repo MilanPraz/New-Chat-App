@@ -9,7 +9,7 @@ export default async function layout({
   children: React.ReactNode;
 }) {
   const session = await getSession();
-  console.log("Session xxxxxxa", session);
+  // console.log("Session xxxxxxa", session);
   return (
     <SessionProvider session={session}>
       <div

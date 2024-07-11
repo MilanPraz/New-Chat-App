@@ -12,7 +12,7 @@ export default function layout({
   children: React.ReactNode;
   params: Params;
 }) {
-  console.log("id hai", params.id);
+  // console.log("id hai", params.id);
 
   return (
     <div className=" p-4 max-w-3xl text-white">

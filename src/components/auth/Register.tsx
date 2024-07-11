@@ -24,12 +24,12 @@ const Register = () => {
   const router = useRouter();
   const { mutateAsync, isPending } = useRegisterMutation();
   const onSubmit = (formdata: TRegisterSchema) => {
-    console.log("Submit");
+    // console.log("Submit");
 
     const promise = mutateAsync(formdata).then(() => {
       router.push("/login");
 
-      console.log("done");
+      // console.log("done");
     });
 
     toast.promise(promise, {

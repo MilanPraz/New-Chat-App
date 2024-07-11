@@ -2,8 +2,8 @@ import { cn } from "@/lib/utils";
 import React from "react";
 
 export default function SingleChat({ chat, user }: { chat: any; user: any }) {
-  console.log("user hai single chat", user);
-  console.log("friend hai single chat", chat);
+  // console.log("user hai single chat", user);
+  // console.log("friend hai single chat", chat);
   return (
     <div
       className={cn(

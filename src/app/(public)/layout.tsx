@@ -8,7 +8,7 @@ export default async function RootLayout({
   children: ReactNode;
 }) {
   const session = await getSession();
-  console.log("layout ko session", session);
+  // console.log("layout ko session", session);
 
   if (session) {
     redirect("/dashboard");
