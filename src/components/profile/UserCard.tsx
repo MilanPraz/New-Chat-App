@@ -2,11 +2,13 @@
 import React from "react";
 import { H3 } from "../typography";
 import Image from "next/image";
-import { useAuth } from "../../../providers/AuthProvider";
 import { imageUrlConverter } from "../../../helpers/imageUrl";
+import { useSession } from "../../../providers/SessionProvider";
 
 export default function UserCard() {
-  const { user } = useAuth();
+  const {
+    session: { user },
+  } = useSession();
   console.log("User card ko ", user);
 
   return (

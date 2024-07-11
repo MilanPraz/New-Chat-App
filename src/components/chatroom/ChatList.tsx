@@ -8,23 +8,27 @@ import { Input } from "../ui/input";
 import { Send } from "lucide-react";
 import { usePostAChat } from "../../../hooks/mutations/chat";
 import toast from "react-hot-toast";
+import { useSession } from "../../../providers/SessionProvider";
 
 export default function ChatList() {
   const paramsId = useParams();
   const [msg, setMsg] = useState("");
-  const { chatroomId } = useAuth();
-
-  const { user, chatroomFriend } = useAuth();
-  console.log("chatroom vitra hai frind", chatroomFriend);
+  const {
+    chatRoomId,
+    session: { user },
+    friend,
+  } = useSession();
+  // const { user, chatroomFriend } = useAuth();
+  console.log("chatroom vitra hai frind", friend);
   const params = {
     senderId: user?._id,
     receiverId: paramsId?.id,
   };
 
-  console.log("chatroomid xa?", chatroomId);
+  console.log("chatRoomId xa?", chatRoomId);
   const { mutateAsync } = usePostAChat();
   const { data: AllChats, isLoading } = useGetChat({
-    id: chatroomId || "new",
+    id: chatRoomId || "new",
     params,
   });
   console.log("chat haiiiii", AllChats);
@@ -35,8 +39,8 @@ export default function ChatList() {
     const payload = {
       message: msg,
       senderId: user?._id,
-      receiverId: chatroomFriend?._id,
-      chatId: chatroomId || "new",
+      receiverId: friend?._id,
+      chatId: chatRoomId || "new",
     };
 
     console.log("payload", payload);
@@ -55,9 +59,9 @@ export default function ChatList() {
   if (isLoading) return <p className=" text-white">Chat loading....</p>;
   return (
     <div className="  ">
-      <div className=" w-full space-y-3 h-[75vh]">
-        {AllChats?.map((c, idx) => {
-          return <SingleChat key={idx} chat={c} />;
+      <div className=" w-full   flex flex-col gap-4 h-[75vh]">
+        {AllChats?.map((c: any, idx: number) => {
+          return <SingleChat user={user} key={idx} chat={c} />;
         })}
       </div>
       <form

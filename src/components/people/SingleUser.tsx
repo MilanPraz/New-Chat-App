@@ -7,34 +7,40 @@ import { Plus } from "lucide-react";
 import toast from "react-hot-toast";
 import { usePostAChat } from "../../../hooks/mutations/chat";
 import { useAuth } from "../../../providers/AuthProvider";
+import { useSession } from "../../../providers/SessionProvider";
 
 export default function SingleUser({ user }: { user: any }) {
   const { name, email, pic } = user;
-  const { user: sender } = useAuth();
   const { mutateAsync } = usePostAChat();
+  const {
+    session: { user: UserDetail },
+  } = useSession();
+  console.log("user ko detail hai  add garda", UserDetail);
 
   function handleAddFriend() {
     console.log("add friend");
     console.log("form cliikc");
     const payload = {
       message: "Hi",
-      senderId: sender?._id,
+      senderId: UserDetail?._id,
       receiverId: user?._id,
       chatId: "new",
     };
 
     console.log("payload haiii", payload);
-    const promise = mutateAsync(payload).then(() => {
-      console.log("Successfullly msg sent");
-      //  setMsg("");
-    });
+    const promise = mutateAsync(payload)
+      .then(() => {
+        console.log("Successfullly msg sent");
+        //  setMsg("");
+      })
+      .catch((err) => console.log(err));
 
-    // toast.promise(promise, {
-    //   loading: "Sending msg...",
-    //   success: "Successfully sent",
-    //   error: (err) => err.msg || "Something went wrong",
-    // });
-    toast.success("Added Sucessfully")
+    toast.promise(promise, {
+      loading: "Sending msg...",
+      success: "Successfully sent",
+      error: (err) => err.msg || "Something went wrong",
+    });
+    // toast.success("Added Sucessfully");
   }
   return (
     <div className="  rounded-lg flex  justify-between cursor-pointer items-center overflow-auto gap-2 bg-mybg hover:bg-mylightdark p-2   w-[250px]">

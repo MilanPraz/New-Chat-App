@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { getSession } from "../../../lib";
+import { getSession } from "../../lib";
 import { redirect } from "next/navigation";
 
 export default async function RootLayout({

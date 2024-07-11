@@ -1,10 +1,8 @@
 import Image from "next/image";
 import React from "react";
-import { H4, H5 } from "../typography";
 import { imageUrlConverter } from "../../../helpers/imageUrl";
 
 export default function SingleMessageOfFriends({ user }: { user: any }) {
-  console.log("vitraa hii", user);
   const { name, pic } = user;
   return (
     <div className=" rounded-lg flex cursor-pointer items-center overflow-auto gap-2 bg-mybg hover:bg-mylightdark p-2 w-fit pr-20">

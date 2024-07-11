@@ -31,11 +31,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={nunito.className} style={{ background: "black" }}>
         <QueryProvider>
-          <AuthProvider>
-            <ProgressBar />
-            {children}
-            <Toaster toastOptions={{ position: "top-right" }} />
-          </AuthProvider>
+          <ProgressBar />
+          {children}
+          <Toaster toastOptions={{ position: "top-right" }} />
         </QueryProvider>
       </body>
     </html>

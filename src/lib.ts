@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import { SignJWT, jwtVerify } from "jose";
 import { NextRequest, NextResponse } from "next/server";
 import { parse } from "path";
+import { redirect } from "next/navigation";
 
 const key = new TextEncoder().encode(process.env.JWT_SECRET_KEY);
 
@@ -11,11 +12,11 @@ export async function encrypt(payload: any) {
   return await new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
-    .setExpirationTime("100s")
+    .setExpirationTime("100s") //'1day' normally
     .sign(key);
 }
 
-export async function decrypt(hashed: string): Promise<any> {
+export async function decrypt(hashed: string) {
   try {
     const { payload } = await jwtVerify(hashed, key, { algorithms: ["HS256"] });
 
@@ -28,6 +29,7 @@ export async function decrypt(hashed: string): Promise<any> {
   }
 }
 
+// CREATE SESSION
 export async function loginHai(payload: any) {
   //verify credentials and then get the user
 
@@ -35,14 +37,19 @@ export async function loginHai(payload: any) {
     endpoint: "/api/user/login",
     payload,
   });
-  const userDetail = res.user;
+  const userDetail = {
+    user: res.user,
+    token: res.token,
+  };
 
-  console.log("login paxiiii", res.user);
+  console.log("login paxiiii", userDetail);
   console.log("-------------------------------");
   //in res i get user's detail and token
 
+  // THIS IS SESSION EXPIRY TIME
   const expires = new Date(Date.now() + 100 * 1000); // here we set expire to 10sec
-  const session = await encrypt({ userDetail, expires });
+  //  IN SESSION THERE IS HASED VALUE OF THAT USER DETAILS
+  const session = await encrypt({ ...userDetail, expires });
 
   //save the session in a cookie
   cookies().set("session", session, { expires, httpOnly: true });
@@ -61,16 +68,16 @@ export async function logoutHai() {
 
 export async function getSession() {
   const session = cookies().get("session")?.value;
-  console.log("session xa tw?", session);
+  // console.log("session xa tw?", session);
   if (!session) return null;
   return await decrypt(session);
 }
 
 export async function updateSession(req: NextRequest) {
-  console.log("-----------update vitraa");
+  // console.log("-----------update vitraa");
   const session = req.cookies.get("session")?.value;
 
-  console.log("updatesession vitraaaaa", session);
+  // console.log("updatesession vitraaaaa", session);
   if (!session) return;
 
   //Refresh the session so it doesn't expires
@@ -86,10 +93,26 @@ export async function updateSession(req: NextRequest) {
   //     httpOnly: true,
   //     expires: parsed.expires,
   //   });
-  res.cookies.set("session", await encrypt(parsed), {
-    expires: parsed.expires,
-    httpOnly: true,
-  });
+  // res.cookies.set("session", await encrypt(parsed), {
+  //   expires: parsed.expires,
+  //   httpOnly: true,
+  // });
 
   return res;
+}
+
+export async function deleteSession() {
+  cookies().delete("session");
+  redirect("/login");
+}
+
+export async function verfiySession() {
+  const cookie = cookies().get("session")?.value;
+  const session = await decrypt(cookie!);
+
+  if (!session) {
+    redirect("/login");
+  }
+
+  return { session };
 }

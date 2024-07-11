@@ -4,13 +4,15 @@ import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { Button } from "../ui/button";
 import { useChangePp } from "../../../hooks/mutations/profilePicture";
-import { useAuth } from "../../../providers/AuthProvider";
 import toast from "react-hot-toast";
+import { useSession } from "../../../providers/SessionProvider";
 
 export default function ChangePP() {
   const [preview, setPreview] = useState<any>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const { user } = useAuth();
+  const {
+    session: { user },
+  } = useSession();
 
   const { mutateAsync, isPending } = useChangePp();
 

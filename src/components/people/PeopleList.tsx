@@ -6,17 +6,15 @@ import { useAuth } from "../../../providers/AuthProvider";
 import { useGetAllPeople } from "../../../hooks/query/people";
 import { useGetChat } from "../../../hooks/query/chat.query";
 import Link from "next/link";
+import { useSession } from "../../../providers/SessionProvider";
 
 export default function PeopleList() {
-  const { token, setChatroomFriend } = useAuth();
-  const { data: AllPeople, isLoading } = useGetAllPeople(token);
+  const { data: AllPeople, isLoading } = useGetAllPeople();
   console.log("sabaiiiiiiii people", AllPeople);
-  //   const { data } = useGetChat();
-  //
 
   function handleSetFriendDetail(friend: any) {
     console.log("friend detail", friend);
-    setChatroomFriend(friend);
+    // setChatroomFriend(friend);
   }
 
   if (isLoading) return <p>Loading...</p>;

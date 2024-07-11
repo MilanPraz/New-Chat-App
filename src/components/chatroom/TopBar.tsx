@@ -3,10 +3,11 @@ import Image from "next/image";
 import React from "react";
 import { useAuth } from "../../../providers/AuthProvider";
 import { imageUrlConverter } from "../../../helpers/imageUrl";
+import { useSession } from "../../../providers/SessionProvider";
 
 export default function TopBar() {
-  const { chatroomFriend: c } = useAuth();
-
+  // const { chatroomFriend: c } = useAuth();
+  const { friend: c } = useSession();
   console.log("chattttttttttt", c);
   return (
     <div>

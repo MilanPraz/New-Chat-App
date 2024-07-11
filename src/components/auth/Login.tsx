@@ -12,10 +12,8 @@ import FormError from "../form/FormError";
 import { useLoginRegister } from "../../../hooks/mutations/auth";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
-import { useAuth } from "../../../providers/AuthProvider";
-import { loginHai } from "../../../lib";
+import { loginHai } from "../../lib";
 const Login = () => {
-  const { login } = useAuth();
   const {
     register,
     handleSubmit,
@@ -27,6 +25,7 @@ const Login = () => {
   const router = useRouter();
   const { mutateAsync, isPending } = useLoginRegister();
   const onSubmit = async (formdata: TLoginSchema) => {
+    console.log("clicked form?");
     // const promise = mutateAsync(formdata).then((res) => {
     //   router.push("/");
     //   console.log("Submitted");
