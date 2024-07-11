@@ -8,10 +8,11 @@ import React from "react";
 export default function page() {
   return (
     <div className=" p-4 max-w-3xl text-white">
-      {/* <TopBar /> */}
-      yooooooooooo
+      <TopBar />
       <div>
-        <div className=" p-4">{/* <ChatList /> */}</div>
+        <div className=" p-4">
+          <ChatList />
+        </div>
       </div>
     </div>
   );

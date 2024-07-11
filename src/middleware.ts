@@ -24,13 +24,13 @@ export default async function middleware(req: NextRequest) {
   const pathname = req.nextUrl.pathname;
   if (/\.(png|svg|jpg|webp|mp3|geojson)$/.test(pathname)) return;
 
-  // console.log("private ho?", isPrivateRoute(pathname));
-  // if (isPrivateRoute(pathname)) {
-  //   const session = await getSession();
-  //   if (!session) {
-  //     return handleUnauthorized(req);
-  //   }
-  //   return await updateSession(req);
-  // }
+  console.log("private ho?", isPrivateRoute(pathname));
+  if (isPrivateRoute(pathname)) {
+    const session = await getSession();
+    if (!session) {
+      return handleUnauthorized(req);
+    }
+    return await updateSession(req);
+  }
   return NextResponse.next();
 }
