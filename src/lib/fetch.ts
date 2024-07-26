@@ -50,10 +50,20 @@ export const postRequest = async ({ payload, token, endpoint }: TRequest) => {
     method: "POST",
     body: isFormData ? payload : JSON.stringify(payload),
   });
-  if (!res.ok) return throwException(res);
+  // if (!res.ok) return throwException(res);
+  if (!res.ok) {
+    const errorData = await res.json();
+    // console.error("Error response:", errorData);
+    // console.error("Error response:", res.status);
+    // throw new Error(errorData.error);
+    return {
+      status: res.status,
+      message: errorData,
+    };
+  }
 
   const data = await res.json();
-  return data;
+  return { status: 200, data };
 };
 
 //PATCH

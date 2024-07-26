@@ -2,6 +2,8 @@ export const throwException = async (res: Response) => {
   let errorMessage;
   //MESSAGE PARRT HANDLE
   const { message } = await res.json();
+  console.log("error", res);
+  console.log("error mmsg", message);
   if (typeof message === "object") {
     errorMessage = message[0];
   } else {

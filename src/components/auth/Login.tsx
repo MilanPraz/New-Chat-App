@@ -33,10 +33,17 @@ const Login = () => {
     //   login({ user: res.user, accessToken: res.token });
     // });
     const res = await loginHai(formdata);
-    console.log("yeta form submit bata", res);
+    console.log("yeta form submit bata", res?.status);
     if (res?.status === 200) {
       toast.success("Successfully LoggedIn");
       router.push("/");
+    }
+
+    if (res?.status === 401) {
+      const {
+        message: { message: msg },
+      } = res;
+      toast.error(msg);
     }
     // toast.promise(promise, {
     //   loading: "Wait for while...",
