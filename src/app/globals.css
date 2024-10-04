@@ -74,3 +74,14 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Hide scrollbars but allow scrolling */
+.chatScroll {
+  overflow: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer and Edge */
+}
+
+.chatScroll::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, and Opera */
+}

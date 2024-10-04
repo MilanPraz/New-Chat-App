@@ -1,18 +1,21 @@
-import React, { ReactNode } from "react";
-import { getSession } from "../../lib";
-import { redirect } from "next/navigation";
+import React, { ReactNode } from "react"
+import { getSession } from "../../lib"
+import { redirect } from "next/navigation"
 
 export default async function RootLayout({
   children,
 }: {
-  children: ReactNode;
+  children: ReactNode
 }) {
-  const session = await getSession();
+  const session = await getSession()
   // console.log("layout ko session", session);
 
-  if (session) {
-    redirect("/dashboard");
-  }
+  //  why this below logic is used? it was casusing chrome to redirect again to login
+  // if (session) {
+  //   console.log("sessoin xa????????")
 
-  return <>{children}</>;
+  //   redirect("/dashboard")
+  // }
+
+  return <>{children}</>
 }

@@ -51,11 +51,13 @@ export async function loginHai(payload: any) {
       //in res i get user's detail and token
 
       // THIS IS SESSION EXPIRY TIME
+      //yo expire chahi just dekhauna lai tyo cookie ma
       const expires = new Date(Date.now() + 60 * 60 * 1000) // here we set expire to 10sec
       //  IN SESSION THERE IS HASED VALUE OF THAT USER DETAILS
       const session = await encrypt({ ...userDetail, expires })
 
       //save the session in a cookie
+      //yeta chahi tyo mathi ko expires actaullly haleko
       cookies().set("session", session, { expires, httpOnly: true })
       //httponly means we can only read this in server
       // console.log("response lib", res);
@@ -116,7 +118,7 @@ export async function updateSession(req: NextRequest) {
   //   expires: parsed.expires,
   //   httpOnly: true,
   // });
-
+  //returning this modified NextResponse object.
   return res
 }
 

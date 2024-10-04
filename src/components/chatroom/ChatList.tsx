@@ -1,31 +1,37 @@
-"use client";
-import React, { useEffect, useRef, useState } from "react";
-import SingleChat from "./SingleChat";
-import { useGetChat } from "../../../hooks/query/chat.query";
-import { useAuth } from "../../../providers/AuthProvider";
-import { useParams } from "next/navigation";
-import { Input } from "../ui/input";
-import { Send } from "lucide-react";
-import { usePostAChat } from "../../../hooks/mutations/chat";
-import toast from "react-hot-toast";
-import { useSession } from "../../../providers/SessionProvider";
+"use client"
+import React, { useEffect, useRef, useState } from "react"
+import SingleChat from "./SingleChat"
+import { useGetChat } from "../../../hooks/query/chat.query"
+import { useAuth } from "../../../providers/AuthProvider"
+import { useParams } from "next/navigation"
+import { Input } from "../ui/input"
+import { Send } from "lucide-react"
+import { usePostAChat } from "../../../hooks/mutations/chat"
+import toast from "react-hot-toast"
+import { useSession } from "../../../providers/SessionProvider"
+import { io } from "socket.io-client"
 
-export default function ChatList() {
-  const paramsId = useParams();
-  const [msg, setMsg] = useState("");
+// let socket
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL
+
+export default function ChatList({ socket }: { socket: any }) {
+  const paramsId = useParams()
+  const [msg, setMsg] = useState("")
+  const [chats, setChats] = useState<any[]>([]) // Local state to store chats in real-time
+
   const {
     chatRoomId,
     session: { user },
     friend,
-  } = useSession();
+  } = useSession()
   // const { user, chatroomFriend } = useAuth();
-  console.log("chatroom vitra hai frind", friend);
+  console.log("chatroom vitra hai frind", friend)
   const params = {
     senderId: user?._id,
     receiverId: paramsId?.id,
-  };
+  }
 
-  const { mutateAsync } = usePostAChat();
+  const { mutateAsync } = usePostAChat()
   const {
     data: AllChats,
     isLoading,
@@ -33,56 +39,95 @@ export default function ChatList() {
   } = useGetChat({
     id: chatRoomId || "new",
     params,
-  });
-  const scrollRef = useRef<HTMLDivElement>(null);
+  })
+
+  useEffect(() => {
+    if (!socket) {
+      console.log("Socket is not initialized!")
+      return
+    }
+    // socket?.emit("addUser", user._id)
+    socket?.on("getMessage", (data: any) => {
+      console.log("get mesgagagegaegaegeaggeaaeeaea")
+      console.log("socket ko getMEssage haiii", data)
+      setChats((prev: any) => [
+        ...prev,
+        { user: data.userDetail, message: data.message },
+      ])
+    })
+    return () => {
+      socket.off("getMessage")
+    }
+  }, [user._id])
+
+  useEffect(() => {
+    if (chats.length > 0) {
+      console.log("Scroll testing after chats update")
+      scrollToBottom()
+    }
+  }, [chats])
+  const scrollRef = useRef<HTMLDivElement>(null)
   // Scroll to bottom function
   const scrollToBottom = () => {
     if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight
     }
-  };
+  }
   useEffect(() => {
     if (isSuccess) {
-      scrollToBottom();
+      setChats(AllChats)
+      scrollToBottom()
     }
-  }, [isSuccess, AllChats]);
+  }, [isSuccess, AllChats, socket])
 
-  console.log("chatRoomId xa?", chatRoomId);
+  // console.log("chatRoomId xa?", chatRoomId)
 
-  // console.log("chat haiiiii", AllChats);
+  // console.log("chat haiiiii", AllChats)
 
-  function handleSubmit(e: any) {
-    e.preventDefault();
-    console.log("form cliikc");
+  async function handleSubmit(e: any) {
+    e.preventDefault()
+    console.log("form cliikc")
     const payload = {
       message: msg,
       senderId: user?._id,
       receiverId: friend?._id,
       chatId: chatRoomId || "new",
-    };
+    }
 
-    console.log("payload", payload);
+    //for the socket
+    // let socket = io(`${BACKEND_URL}`)
+
+    socket?.emit("sendMessage", {
+      message: msg,
+      senderId: user?._id,
+      receiverId: friend?._id,
+      chatId: chatRoomId || "new",
+    })
+
+    // console.log("payload", payload)
     const promise = mutateAsync(payload).then(() => {
-      console.log("Successfullly msg sent");
-      setMsg("");
-    });
+      console.log("Successfullly msg sent")
+      setMsg("")
+    })
 
     toast.promise(promise, {
       loading: "Sending msg...",
       success: "Successfully sent",
       error: (eerr) => "Something went wrong",
-    });
+    })
   }
 
-  if (isLoading) return <p className=" text-white">Chat loading....</p>;
+  // console.log("chat after sendingggggg", chats)
+
+  if (isLoading) return <p className=" text-white">Chat loading....</p>
   return (
     <div className="  ">
       <div
         ref={scrollRef}
-        className=" w-full  pb-2  flex flex-col gap-4 overflow-auto pr-4 h-[75vh]"
+        className="chatScroll w-full  pb-2  flex flex-col gap-4 overflow-auto pr-4 h-[75vh]"
       >
-        {AllChats?.map((c: any, idx: number) => {
-          return <SingleChat user={user} key={idx} chat={c} />;
+        {chats?.map((c: any, idx: number) => {
+          return <SingleChat user={user} key={idx} chat={c} />
         })}
       </div>
       <form
@@ -100,5 +145,5 @@ export default function ChatList() {
         </button>
       </form>
     </div>
-  );
+  )
 }

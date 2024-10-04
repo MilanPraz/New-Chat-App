@@ -1,14 +1,49 @@
-"use client";
-import Image from "next/image";
-import React from "react";
-import { useAuth } from "../../../providers/AuthProvider";
-import { imageUrlConverter } from "../../../helpers/imageUrl";
-import { useSession } from "../../../providers/SessionProvider";
+"use client"
+import Image from "next/image"
+import React, { useEffect, useState } from "react"
+import { useAuth } from "../../../providers/AuthProvider"
+import { imageUrlConverter } from "../../../helpers/imageUrl"
+import { useSession } from "../../../providers/SessionProvider"
+import { io } from "socket.io-client"
 
-export default function TopBar() {
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL
+
+export default function TopBar({ socket }: { socket: any }) {
+  const [receiverOnline, setReceiverOnline] = useState(false)
   // const { chatroomFriend: c } = useAuth();
-  const { friend: c } = useSession();
-  console.log("chattttttttttt", c);
+  const {
+    friend: c,
+    session: { user },
+    activeUsers,
+  } = useSession()
+  console.log("chattttttttttt", c)
+
+  //socket connection establish
+  // useEffect(() => {
+  //   // let socket = io(`${BACKEND_URL}`)
+  //   console.log("topbar ko userid", user._id)
+
+  //   socket?.emit("addUser", user._id)
+
+  //   socket?.on("getUsers", (users: any) => {
+  //     console.log("active userss TOpBAr bata", users)
+  //     const online = users.find((u: any) => u.userId === c._id)
+  //     console.log("onl;ine ko xaa:", online)
+
+  //     if (online) {
+  //       setReceiverOnline(true)
+  //     } else {
+  //       setReceiverOnline(false)
+  //     }
+  //   })
+  // }, [socket, user._id])
+  let isActive
+  isActive = activeUsers.find(
+    (user: any) => user.userId.toString() === c._id.toString()
+  )
+
+  console.log("active statussssssssssssss", isActive)
+
   return (
     <div>
       {" "}
@@ -27,9 +62,11 @@ export default function TopBar() {
           </div>
         </div>
         <div>
-          <div className=" rounded-full h-2 w-2 bg-gray-400"></div>
+          <div
+            className={`rounded-full h-2 w-2 ${isActive ? "bg-green-500" : "bg-gray-400"} `}
+          ></div>
         </div>
       </div>
     </div>
-  );
+  )
 }

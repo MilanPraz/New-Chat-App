@@ -27,7 +27,13 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "chat-app-backend-fwr0.onrender.com",
+        hostname: "chat-app-new-backend.onrender.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "8009",
         pathname: "/**",
       },
     ],
@@ -45,6 +51,6 @@ const nextConfig = {
   //     },
   //   ];
   // },
-};
+}
 
-export default nextConfig;
+export default nextConfig

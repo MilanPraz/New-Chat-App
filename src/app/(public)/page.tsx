@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import React from "react";
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
+import React from "react"
 
 export default function page() {
   return (
@@ -11,5 +11,5 @@ export default function page() {
         <Link href="/login">Login Now!</Link>
       </Button>
     </div>
-  );
+  )
 }

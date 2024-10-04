@@ -1,10 +1,10 @@
-import { Home, MessageCircleMore, UserCog, UsersRound } from "lucide-react";
-import { ReactNode } from "react";
+import { Home, MessageCircleMore, UserCog, UsersRound } from "lucide-react"
+import { ReactNode } from "react"
 
 export const menus = [
   {
     title: "Home",
-    to: "/",
+    to: "/dashboard",
     icon: <Home size={16} />,
   },
   {
@@ -22,4 +22,4 @@ export const menus = [
     to: "/profile",
     icon: <UserCog size={16} />,
   },
-];
+]

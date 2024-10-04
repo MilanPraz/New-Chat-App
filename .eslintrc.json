@@ -1,23 +1,29 @@
-{
-  "env": {
-    "node": true,
-    "es2021": true,
-    "browser": true
-  },
-  "globals": {
-    "React": true
-  },
-  "extends": [
-    "airbnb",
-    "prettier",
-    "eslint:recommended",
-    "next/core-web-vitals"
-  ],
-  "parserOptions": {
-    "ecmaVersion": 12,
-    "sourceType": "module",
-    "ecmaFeatures": { "jsx": true }
-  },
-  "plugins": ["prettier"],
-  "rules": {}
-}
+// {
+//   "env": {
+//     "node": true,
+//     "es2021": true,
+//     "browser": true
+//   },
+//   "globals": {
+//     "React": true
+//   },
+//   "extends": [
+//     "airbnb",
+//     "prettier",
+//     "eslint:recommended",
+//     "next/core-web-vitals"
+//   ],
+//   "parserOptions": {
+//     "ecmaVersion": 12,
+//     "sourceType": "module",
+//     "ecmaFeatures": { "jsx": true }
+//   },
+//   "plugins": ["prettier"],
+//   "rules": {
+//     "import/prefer-default-export": "off",
+//     "spaced-comment": "off",
+//     "prefer-destructuring": "off",
+//     "eslint-plugin-import/extensions": "off",
+//     "global-require": "off"
+//   }
+// }

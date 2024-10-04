@@ -1,45 +1,45 @@
-"use client";
-import Image from "next/image";
-import React from "react";
-import { H4, H5 } from "../typography";
-import { imageUrlConverter } from "../../../helpers/imageUrl";
-import { Plus } from "lucide-react";
-import toast from "react-hot-toast";
-import { usePostAChat } from "../../../hooks/mutations/chat";
-import { useAuth } from "../../../providers/AuthProvider";
-import { useSession } from "../../../providers/SessionProvider";
+"use client"
+import Image from "next/image"
+import React from "react"
+import { H4, H5 } from "../typography"
+import { imageUrlConverter } from "../../../helpers/imageUrl"
+import { Plus } from "lucide-react"
+import toast from "react-hot-toast"
+import { usePostAChat } from "../../../hooks/mutations/chat"
+import { useAuth } from "../../../providers/AuthProvider"
+import { useSession } from "../../../providers/SessionProvider"
 
 export default function SingleUser({ user }: { user: any }) {
-  const { name, email, pic } = user;
-  const { mutateAsync } = usePostAChat();
+  const { name, email, pic } = user
+  const { mutateAsync } = usePostAChat()
   const {
     session: { user: UserDetail },
-  } = useSession();
-  console.log("user ko detail hai  add garda", UserDetail);
+  } = useSession()
+  console.log("user ko detail hai  add garda", UserDetail)
 
   function handleAddFriend() {
-    console.log("add friend");
-    console.log("form cliikc");
+    console.log("add friend")
+    console.log("form cliikc")
     const payload = {
       message: "Hi",
       senderId: UserDetail?._id,
       receiverId: user?._id,
       chatId: "new",
-    };
+    }
 
-    console.log("payload haiii", payload);
+    console.log("payload haiii", payload)
     const promise = mutateAsync(payload)
       .then(() => {
-        console.log("Successfullly msg sent");
+        console.log("Successfullly msg sent")
         //  setMsg("");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
 
     toast.promise(promise, {
-      loading: "Sending msg...",
-      success: "Successfully sent",
+      loading: "Sending Friend Request",
+      success: "Friend Request has been sent. ",
       error: (err) => err.msg || "Something went wrong",
-    });
+    })
     // toast.success("Added Sucessfully");
   }
   return (
@@ -66,5 +66,5 @@ export default function SingleUser({ user }: { user: any }) {
         <Plus size={20} />
       </button>
     </div>
-  );
+  )
 }
