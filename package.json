@@ -7,8 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "cm": "gitmoji -c",
-    "prepare": "husky"
+    "cm": "gitmoji -c"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.4.0",
