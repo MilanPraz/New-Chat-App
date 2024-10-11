@@ -110,11 +110,11 @@ export default function ChatList({ socket }: { socket: any }) {
       setMsg("")
     })
 
-    toast.promise(promise, {
-      loading: "Sending msg...",
-      success: "Successfully sent",
-      error: (eerr) => "Something went wrong",
-    })
+    // toast.promise(promise, {
+    //   loading: "Sending msg...",
+    //   success: "Successfully sent",
+    //   error: (eerr) => "Something went wrong",
+    // })
   }
 
   // console.log("chat after sendingggggg", chats)
@@ -124,7 +124,7 @@ export default function ChatList({ socket }: { socket: any }) {
     <div className="  ">
       <div
         ref={scrollRef}
-        className="chatScroll w-full  pb-2  flex flex-col gap-4 overflow-auto pr-4 h-[75vh]"
+        className="chatScroll w-full  pb-2  flex flex-col gap-4 overflow-auto pr-4 h-[70vh]"
       >
         {chats?.map((c: any, idx: number) => {
           return <SingleChat user={user} key={idx} chat={c} />

@@ -119,7 +119,7 @@ const Login = () => {
       <div>
         <div
           onClick={() => handleGoogleLogin()}
-          className=" text-xl flex items-center justify-center gap-4  border-2 cursor-pointer border-primary py-2 rounded-lg font-bold text-center"
+          className=" text-sm sm:text-xl flex items-center justify-center gap-4  border-2 cursor-pointer border-primary py-2 rounded-lg font-bold text-center"
         >
           Sign In with Google{" "}
           <div>

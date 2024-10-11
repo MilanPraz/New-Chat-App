@@ -17,10 +17,10 @@ export default function page() {
     socket?.emit("addUser", user._id)
   }, [socket, user._id])
   return (
-    <div className=" p-4 max-w-3xl text-white">
+    <div className=" p-2 max-w-3xl text-white">
       <TopBar socket={socket} />
       <div>
-        <div className=" p-4">
+        <div className=" px-4 py-2">
           <ChatList socket={socket} />
         </div>
       </div>
