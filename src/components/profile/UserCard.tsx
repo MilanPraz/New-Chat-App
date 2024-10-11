@@ -18,8 +18,7 @@ export default function UserCard() {
       <H3>Account Details</H3>
       <div>
         <Image
-          src="https://lh3.googleusercontent.com/a/ACg8ocJAu2KgTcUAB25q0SDTSUAmqDff56EQa4Y5UVL5WmvhQ-p9HQ=s96-c"
-          // src={imageUrlConverter(user?.pic)}
+          src={imageUrlConverter(user?.pic)}
           height={100}
           alt="user"
           className=" h-40 w-40 rounded-full object-cover object-center"
