@@ -146,4 +146,8 @@ export async function createCookie(userDetail: any) {
   //save the session in a cookie
   //yeta chahi tyo mathi ko expires actaullly haleko
   cookies().set("session", session, { expires, httpOnly: true })
+  return {
+    status: 200,
+    message: "Successfully LoggedIn",
+  }
 }

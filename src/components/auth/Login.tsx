@@ -72,9 +72,11 @@ const Login = () => {
             token: res.data.token,
           }
 
-          createCookie(userDetail)
-          router.push("/dashboard")
-          toast.success("Successfully LoggedIn")
+          const cookieRes = await createCookie(userDetail)
+          if (cookieRes.status == 200) {
+            router.push("/dashboard")
+            toast.success("Successfully LoggedIn")
+          }
         }
         // if (res.status === 401) {
         //   return {
