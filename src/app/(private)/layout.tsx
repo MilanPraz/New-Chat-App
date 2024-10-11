@@ -25,7 +25,7 @@ export default async function layout({
         className=" overflow-auto h-screen "
       >
         <div className=" inset-0 absolute bg-black/80 h-[100vh]"></div>
-        <div className="flex flex-col  md:gap-4  2xl:container">
+        <div className="flex flex-col md:flex-row  md:gap-4  2xl:container">
           <SideNav />
           <TopNav />
           <div className=" flex-1 md:mt-0 mt-12 w-full md: py-4 relative h-full overflow-hidden">

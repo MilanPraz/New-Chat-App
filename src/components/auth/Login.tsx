@@ -16,6 +16,7 @@ import { createCookie, loginHai } from "../../lib"
 import { useGoogleLogin } from "@react-oauth/google"
 import { signIn, useSession } from "next-auth/react"
 import axios from "axios"
+import Link from "next/link"
 
 const Login = () => {
   const {
@@ -116,6 +117,17 @@ const Login = () => {
       <Button type="submit" className=" w-full">
         Submit
       </Button>
+      <div className=" text-center">
+        <p>
+          New Here?{" "}
+          <Link
+            className=" underline text-primary font-semibold"
+            href={"/register"}
+          >
+            Register Now
+          </Link>
+        </p>
+      </div>
       <div>
         <div
           onClick={() => handleGoogleLogin()}
