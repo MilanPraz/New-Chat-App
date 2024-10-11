@@ -137,3 +137,13 @@ export async function verfiySession() {
 
   return { session }
 }
+
+export async function createCookie(userDetail: any) {
+  const expires = new Date(Date.now() + 60 * 60 * 1000) // here we set expire to 10sec
+  //  IN SESSION THERE IS HASED VALUE OF THAT USER DETAILS
+  const session = await encrypt({ ...userDetail, expires })
+
+  //save the session in a cookie
+  //yeta chahi tyo mathi ko expires actaullly haleko
+  cookies().set("session", session, { expires, httpOnly: true })
+}

@@ -27,6 +27,11 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
         hostname: "chat-app-new-backend.onrender.com",
         pathname: "/**",
       },

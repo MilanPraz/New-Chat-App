@@ -1,5 +1,5 @@
-import { getRequest } from "@/lib/fetch";
-import { useQuery } from "@tanstack/react-query";
+import { getRequest } from "@/lib/fetch"
+import { useQuery } from "@tanstack/react-query"
 
 export const useGetUserDetail = (token: string) => {
   return useQuery({
@@ -8,7 +8,7 @@ export const useGetUserDetail = (token: string) => {
       return getRequest({
         endpoint: "/api/singleuser",
         token,
-      });
+      })
     },
-  });
-};
+  })
+}
