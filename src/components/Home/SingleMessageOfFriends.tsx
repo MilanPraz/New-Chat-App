@@ -3,6 +3,8 @@ import Image from "next/image"
 import React, { useEffect } from "react"
 import { imageUrlConverter } from "../../../helpers/imageUrl"
 import { useSession } from "../../../providers/SessionProvider"
+import { useGetChat } from "../../../hooks/query/chat.query"
+import PageLoadingUI from "../PageLoadingUI"
 
 export default function SingleMessageOfFriends({
   user,
@@ -11,6 +13,26 @@ export default function SingleMessageOfFriends({
   user: any
   activeUsers: any
 }) {
+  const {
+    chatRoomId,
+    session: { user: sender },
+    friend,
+  } = useSession()
+  const params = {
+    senderId: sender?._id,
+    receiverId: user?.id, //this user is receiver
+  }
+  const {
+    data: AllChats,
+    isLoading,
+    isSuccess,
+  } = useGetChat({
+    id: chatRoomId,
+    params,
+  })
+
+  // console.log("all chats aouxa tw???????????????", AllChats)
+
   let isActive
   const { name, pic, _id: id } = user
   const {
@@ -19,14 +41,14 @@ export default function SingleMessageOfFriends({
   } = useSession()
 
   //connecting to socket io sever
-  console.log("active users haiii singleMessage ma::::::", activeUsers)
+  // console.log("active users haiii singleMessage ma::::::", activeUsers)
 
-  console.log("Active loggededin ko id", id)
+  // console.log("Active loggededin ko id", id)
   isActive = activeUsers.find(
     (user: any) => user.userId.toString() === id.toString()
   )
 
-  console.log("YO manche active xa?", isActive)
+  // console.log("YO manche active xa?", isActive)
   // useEffect(() => {
   //   console.log("singleeeeeeeeeeeeeeeee")
 
@@ -34,6 +56,9 @@ export default function SingleMessageOfFriends({
   //   console.log("iiiiiiiiiiiiiiii")
   // }, [socket, u._id])
 
+  if (isLoading) {
+    return <PageLoadingUI />
+  }
   return (
     <div className=" rounded-lg flex cursor-pointer items-center overflow-auto gap-2 bg-mybg hover:bg-mylightdark p-2 w-fit border-2  border-gray-600">
       <div>
@@ -47,7 +72,9 @@ export default function SingleMessageOfFriends({
       </div>
       <div>
         <h5 className=" text-white">{name}</h5>
-        <p className=" text-muted-foreground text-xs ">Hi how are you?</p>
+        <p className=" text-muted-foreground text-xs ">
+          {AllChats[AllChats?.length - 1]?.message}
+        </p>
       </div>
       <div className=" ml-4">
         <div

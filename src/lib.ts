@@ -19,8 +19,6 @@ export async function encrypt(payload: any) {
 export async function decrypt(hashed: string) {
   try {
     const { payload } = await jwtVerify(hashed, key, { algorithms: ["HS256"] })
-
-    // console.log("decrpt ko hai", payload);
     const user = payload
     return user
   } catch (err) {
@@ -38,9 +36,6 @@ export async function loginHai(payload: any) {
       endpoint: "/api/user/login",
       payload,
     })
-
-    console.log("login ko res", res)
-    console.log("login ko res status", res.status)
 
     if (res.status == 200) {
       const userDetail = {

@@ -9,9 +9,9 @@ export default function UserCard() {
   const {
     session: { user },
   } = useSession()
-  console.log("User card ko ", user)
-  console.log("User card ko image ", user?.pic)
-  console.log("image haiiiiiiiiii", imageUrlConverter(user?.pic))
+  // console.log("User card ko ", user)
+  // console.log("User card ko image ", user?.pic)
+  // console.log("image haiiiiiiiiii", imageUrlConverter(user?.pic))
 
   return (
     <div>

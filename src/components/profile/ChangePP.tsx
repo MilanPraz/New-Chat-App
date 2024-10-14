@@ -1,52 +1,52 @@
-"use client";
-import Image from "next/image";
-import React, { useCallback, useState } from "react";
-import { useDropzone } from "react-dropzone";
-import { Button } from "../ui/button";
-import { useChangePp } from "../../../hooks/mutations/profilePicture";
-import toast from "react-hot-toast";
-import { useSession } from "../../../providers/SessionProvider";
+"use client"
+import Image from "next/image"
+import React, { useCallback, useState } from "react"
+import { useDropzone } from "react-dropzone"
+import { Button } from "../ui/button"
+import { useChangePp } from "../../../hooks/mutations/profilePicture"
+import toast from "react-hot-toast"
+import { useSession } from "../../../providers/SessionProvider"
 
 export default function ChangePP() {
-  const [preview, setPreview] = useState<any>(null);
-  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [preview, setPreview] = useState<any>(null)
+  const [imageFile, setImageFile] = useState<File | null>(null)
   const {
     session: { user },
-  } = useSession();
+  } = useSession()
 
-  const { mutateAsync, isPending } = useChangePp();
+  const { mutateAsync, isPending } = useChangePp()
 
   const onDrop = useCallback((acceptedFiles: any[]) => {
-    const file = new FileReader();
+    const file = new FileReader()
     file.onload = () => {
-      setPreview(file.result);
-    };
-    file.readAsDataURL(acceptedFiles[0]);
-    setImageFile(acceptedFiles[0]);
-    console.log("acepted", acceptedFiles[0]);
+      setPreview(file.result)
+    }
+    file.readAsDataURL(acceptedFiles[0])
+    setImageFile(acceptedFiles[0])
+    // console.log("acepted", acceptedFiles[0]);
     // Do something with the files
-  }, []);
+  }, [])
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-  });
+  })
 
   function handleChangePP() {
-    const fd = new FormData();
+    const fd = new FormData()
 
-    fd.append("pic", imageFile!);
-    fd.append("id", user._id);
+    fd.append("pic", imageFile!)
+    fd.append("id", user._id)
 
-    console.log("formdata", { ...fd });
-    console.log("fd", fd);
+    // console.log("formdata", { ...fd })
+    // console.log("fd", fd)
 
     const promise = mutateAsync(fd).then(() => {
-      setPreview(null);
-    });
+      setPreview(null)
+    })
     toast.promise(promise, {
       loading: "Please wait uploading...",
       success: "Successfully Updated",
       error: (err) => "Something went wrong!",
-    });
+    })
   }
   return (
     <div>
@@ -77,5 +77,5 @@ export default function ChangePP() {
         Confirm Changes
       </Button>
     </div>
-  );
+  )
 }

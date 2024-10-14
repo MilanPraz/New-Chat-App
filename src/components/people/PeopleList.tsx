@@ -1,23 +1,24 @@
-"use client";
-import React from "react";
-import SingleUser from "./SingleUser";
-import { H3 } from "../typography";
-import { useAuth } from "../../../providers/AuthProvider";
-import { useGetAllPeople } from "../../../hooks/query/people";
-import { useGetChat } from "../../../hooks/query/chat.query";
-import Link from "next/link";
-import { useSession } from "../../../providers/SessionProvider";
+"use client"
+import React from "react"
+import SingleUser from "./SingleUser"
+import { H3 } from "../typography"
+import { useAuth } from "../../../providers/AuthProvider"
+import { useGetAllPeople } from "../../../hooks/query/people"
+import { useGetChat } from "../../../hooks/query/chat.query"
+import Link from "next/link"
+import { useSession } from "../../../providers/SessionProvider"
+import PageLoadingUI from "../PageLoadingUI"
 
 export default function PeopleList() {
-  const { data: AllPeople, isLoading } = useGetAllPeople();
-  console.log("sabaiiiiiiii people", AllPeople);
+  const { data: AllPeople, isLoading } = useGetAllPeople()
+  // console.log("sabaiiiiiiii people", AllPeople)
 
   function handleSetFriendDetail(friend: any) {
-    console.log("friend detail", friend);
+    // console.log("friend detail", friend)
     // setChatroomFriend(friend);
   }
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <PageLoadingUI />
 
   return (
     <div className=" space-y-4">
@@ -32,9 +33,9 @@ export default function PeopleList() {
                 <SingleUser user={user} />
               </div>
             </div>
-          );
+          )
         })}
       </div>
     </div>
-  );
+  )
 }

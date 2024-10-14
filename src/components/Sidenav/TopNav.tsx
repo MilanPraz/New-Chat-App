@@ -18,8 +18,8 @@ export default function TopNav() {
 
   return (
     <div>
-      <div className=" justify-between flex flex-row  bg-mybg md:hidden  fixed z-50 left-0 top-0 right-0  w-full  px-2 py-2 md:flex  items-start">
-        <ul className=" w-full  flex  gap-6 sm:gap-8  items-center  text-center text-white text-sm    cursor-pointer">
+      <div className=" justify-between flex flex-row  bg-mybg md:hidden  fixed z-50 left-0 top-0 right-0  w-full  px-2 py-2   items-start">
+        <ul className=" w-full  flex  gap-8 sm:gap-10  items-center  text-center text-white text-sm    cursor-pointer">
           {menus.map((m: any, idx: number) => {
             const isActive = pathname === m.to
             return (

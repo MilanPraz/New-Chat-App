@@ -1,18 +1,18 @@
-"use client";
-import { H4 } from "@/components/typography";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import Image from "next/image";
-import toast, { Toaster } from "react-hot-toast";
+"use client"
+import { H4 } from "@/components/typography"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import Image from "next/image"
+import toast, { Toaster } from "react-hot-toast"
 
-import React from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { RegisterSchema, TRegisterSchema } from "../../../schema/auth.schema";
-import { useForm } from "react-hook-form";
-import FormError from "../form/FormError";
-import { useRegisterMutation } from "../../../hooks/mutations/auth";
-import { useRouter } from "next/navigation";
+import React from "react"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { RegisterSchema, TRegisterSchema } from "../../../schema/auth.schema"
+import { useForm } from "react-hook-form"
+import FormError from "../form/FormError"
+import { useRegisterMutation } from "../../../hooks/mutations/auth"
+import { useRouter } from "next/navigation"
 const Register = () => {
   const {
     register,
@@ -20,22 +20,20 @@ const Register = () => {
     formState: { errors },
   } = useForm<TRegisterSchema>({
     resolver: zodResolver(RegisterSchema),
-  });
-  const router = useRouter();
-  const { mutateAsync, isPending } = useRegisterMutation();
+  })
+  const router = useRouter()
+  const { mutateAsync, isPending } = useRegisterMutation()
   const onSubmit = (formdata: TRegisterSchema) => {
-    // console.log("Submit");
     const promise = mutateAsync(formdata).then(() => {
-      router.push("/login");
-      // console.log("done");
-    });
+      router.push("/login")
+    })
 
     toast.promise(promise, {
       loading: "Signing up...",
       success: "Successfully Registered!",
       error: (err) => err.msg || "Something Went Wrong",
-    });
-  };
+    })
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className=" space-y-4">
@@ -62,7 +60,7 @@ const Register = () => {
         Submit
       </Button>
     </form>
-  );
-};
+  )
+}
 
-export default Register;
+export default Register

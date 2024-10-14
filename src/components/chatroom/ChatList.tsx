@@ -25,7 +25,7 @@ export default function ChatList({ socket }: { socket: any }) {
     friend,
   } = useSession()
   // const { user, chatroomFriend } = useAuth();
-  console.log("chatroom vitra hai frind", friend)
+  // console.log("chatroom vitra hai frind", friend)
   const params = {
     senderId: user?._id,
     receiverId: paramsId?.id,
@@ -43,13 +43,13 @@ export default function ChatList({ socket }: { socket: any }) {
 
   useEffect(() => {
     if (!socket) {
-      console.log("Socket is not initialized!")
+      // console.log("Socket is not initialized!")
       return
     }
     // socket?.emit("addUser", user._id)
     socket?.on("getMessage", (data: any) => {
-      console.log("get mesgagagegaegaegeaggeaaeeaea")
-      console.log("socket ko getMEssage haiii", data)
+      // console.log("get mesgagagegaegaegeaggeaaeeaea")
+      // console.log("socket ko getMEssage haiii", data)
       setChats((prev: any) => [
         ...prev,
         { user: data.userDetail, message: data.message },
@@ -62,7 +62,7 @@ export default function ChatList({ socket }: { socket: any }) {
 
   useEffect(() => {
     if (chats.length > 0) {
-      console.log("Scroll testing after chats update")
+      // console.log("Scroll testing after chats update")
       scrollToBottom()
     }
   }, [chats])
@@ -86,7 +86,6 @@ export default function ChatList({ socket }: { socket: any }) {
 
   async function handleSubmit(e: any) {
     e.preventDefault()
-    console.log("form cliikc")
     const payload = {
       message: msg,
       senderId: user?._id,
@@ -106,7 +105,6 @@ export default function ChatList({ socket }: { socket: any }) {
 
     // console.log("payload", payload)
     const promise = mutateAsync(payload).then(() => {
-      console.log("Successfullly msg sent")
       setMsg("")
     })
 
@@ -124,7 +122,7 @@ export default function ChatList({ socket }: { socket: any }) {
     <div className="  ">
       <div
         ref={scrollRef}
-        className="chatScroll w-full  pb-2  flex flex-col gap-4 overflow-auto pr-4 h-[70vh]"
+        className="chatScroll w-full  pb-2  flex flex-col gap-4 overflow-auto pr-4 h-[60vh] md:h-[70vh]"
       >
         {chats?.map((c: any, idx: number) => {
           return <SingleChat user={user} key={idx} chat={c} />

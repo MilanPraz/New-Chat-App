@@ -16,7 +16,6 @@ export default function TopBar({ socket }: { socket: any }) {
     session: { user },
     activeUsers,
   } = useSession()
-  console.log("chattttttttttt", c)
 
   //socket connection establish
   // useEffect(() => {
@@ -41,8 +40,6 @@ export default function TopBar({ socket }: { socket: any }) {
   isActive = activeUsers.find(
     (user: any) => user.userId.toString() === c._id.toString()
   )
-
-  console.log("active statussssssssssssss", isActive)
 
   return (
     <div>

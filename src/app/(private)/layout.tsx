@@ -27,8 +27,9 @@ export default async function layout({
         <div className=" inset-0 absolute bg-black/80 h-[100vh]"></div>
         <div className="flex flex-col md:flex-row  md:gap-4  2xl:container">
           <SideNav />
+          {/* For the mobile screen */}
           <TopNav />
-          <div className=" flex-1 md:mt-0 mt-12 w-full md: py-4 relative h-full overflow-hidden">
+          <div className=" flex-1 md:mt-0 mt-12 w-full  px-2 md: py-4 relative h-full overflow-hidden">
             {children}
           </div>
         </div>

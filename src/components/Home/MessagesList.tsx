@@ -24,23 +24,22 @@ export default function MessagesList() {
   } = useSession()
   //   if(user){}
   const { data, isLoading, refetch } = useGetAllFriendsMessage(user?._id)
-  console.log("friends msg...", data)
 
   useEffect(() => {
     if (!socket) {
-      console.log("Socket is not initialized!")
+      // console.log("Socket is not initialized!")
       return
     }
 
-    console.log("soccket coonection")
+    // console.log("soccket coonection")
 
     //add this user to the backend ko user array ma
     socket.emit("addUser", user._id)
-    console.log("varkhar add gare ko use hai:", user._id)
+    // console.log("varkhar add gare ko use hai:", user._id)
 
     //list of all active usersd;
     socket.on("getUsers", (users: any) => {
-      console.log("onlin euser ko ko xaaa messagelist maaaaa:", users)
+      // console.log("onlin euser ko ko xaaa messagelist maaaaa:", users)
       setActiveUsers(users)
     })
 
@@ -49,13 +48,13 @@ export default function MessagesList() {
     }
   }, [socket, user._id, activeUsers])
 
-  console.log("acive users session providers:", activeUsers)
+  // console.log("acive users session providers:", activeUsers)
 
   // console.log("dataaa arararararary:", data)
 
   function handleSetFriendDetail(user: any) {
-    console.log("friend detail", user.user)
-    console.log("chatidroom detail", user.chatId)
+    // console.log("friend detail", user.user)
+    // console.log("chatidroom detail", user.chatId)
     setFriend(user.user)
     setChatRoomId(user.chatId)
   }

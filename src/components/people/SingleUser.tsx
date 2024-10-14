@@ -15,11 +15,8 @@ export default function SingleUser({ user }: { user: any }) {
   const {
     session: { user: UserDetail },
   } = useSession()
-  console.log("user ko detail hai  add garda", UserDetail)
 
   function handleAddFriend() {
-    console.log("add friend")
-    console.log("form cliikc")
     const payload = {
       message: "Hi",
       senderId: UserDetail?._id,
@@ -27,10 +24,9 @@ export default function SingleUser({ user }: { user: any }) {
       chatId: "new",
     }
 
-    console.log("payload haiii", payload)
     const promise = mutateAsync(payload)
       .then(() => {
-        console.log("Successfullly msg sent")
+        // console.log("Successfullly msg sent")
         //  setMsg("");
       })
       .catch((err) => console.log(err))

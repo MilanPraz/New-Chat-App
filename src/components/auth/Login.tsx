@@ -30,7 +30,6 @@ const Login = () => {
   const router = useRouter()
   const { mutateAsync, isPending } = useGoogleAuth()
   const onSubmit = async (formdata: TLoginSchema) => {
-    console.log("clicked form?")
     // const promise = mutateAsync(formdata).then((res) => {
     //   router.push("/");
     //   console.log("Submitted");
@@ -38,13 +37,9 @@ const Login = () => {
     //   login({ user: res.user, accessToken: res.token });
     // });
     const res = await loginHai(formdata)
-    console.log("yeta form submit bata", res?.status)
     if (res?.status == 200) {
-      console.log("login success")
-
       toast.success("Successfully LoggedIn")
       router.push("/dashboard")
-      console.log("push paxi")
     }
 
     if (res?.status === 401) {
@@ -62,7 +57,7 @@ const Login = () => {
 
   const responseGoogle = async (authResult: any) => {
     try {
-      console.log("google auth res", authResult)
+      // console.log("google auth res", authResult)
 
       if (authResult.code) {
         const res = await mutateAsync({ code: authResult.code })
@@ -85,10 +80,10 @@ const Login = () => {
         //     message: res.message,
         //   }
         // }
-        console.log("res k xa", res)
+        // console.log("res k xa", res)
       }
     } catch (err) {
-      console.log("error while requrest in google code", err)
+      console.log("error while request in google code", err)
     }
   }
 

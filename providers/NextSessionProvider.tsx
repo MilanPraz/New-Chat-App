@@ -9,7 +9,6 @@ export default function NextSessionProvider({
   children: ReactNode
 }) {
   const clientid = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string
-  console.log("client idddddddddddddddddd", clientid)
 
   return (
     <GoogleOAuthProvider clientId={clientid}>{children}</GoogleOAuthProvider>
