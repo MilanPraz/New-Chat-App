@@ -8,8 +8,8 @@ export default function page() {
   return (
     <section className=" relative bg-gradient-to-b from-sky-300 to-fuchsia-300 h-[100vh] w-full">
       <div className="absolute z-40   max-w-[90%] sm:max-w-md w-full space-y-10  p-8 bg-gray-50  bg-opacity-30 rounded-xl drop-shadow-lg  backdrop-blur-md  top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] ">
-        <div className=" text-center   ">
-          <H4>Welcome Back!!! Login Now</H4>
+        <div className=" text-center ">
+          <H4>Welcome Back! Login Here</H4>
         </div>
         <Login />
       </div>

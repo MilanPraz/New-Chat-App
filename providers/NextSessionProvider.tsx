@@ -10,6 +10,8 @@ export default function NextSessionProvider({
 }) {
   const clientid = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string
 
+  if (!clientid) return null
+
   return (
     <GoogleOAuthProvider clientId={clientid}>{children}</GoogleOAuthProvider>
   )
