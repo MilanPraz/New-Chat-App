@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Image from "next/image"
-import React from "react"
+import React, { useEffect } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { TLoginSchema, loginSchema } from "../../../schema/auth.schema"
 import { useForm } from "react-hook-form"
@@ -93,6 +93,10 @@ const Login = () => {
     flow: "auth-code",
     // redirect_uri: "http://localhost:3000",
   })
+
+  useEffect(() => {
+    console.log("THiS iiS LOGIN PAGE")
+  }, [])
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className=" space-y-4">
