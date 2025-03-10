@@ -5,6 +5,7 @@ import { imageUrlConverter } from "../../../helpers/imageUrl"
 import { useSession } from "../../../providers/SessionProvider"
 import { useGetChat } from "../../../hooks/query/chat.query"
 import PageLoadingUI from "../PageLoadingUI"
+import { Dot } from "lucide-react"
 
 export default function SingleMessageOfFriends({
   user,
@@ -31,7 +32,7 @@ export default function SingleMessageOfFriends({
     params,
   })
 
-  // console.log("all chats aouxa tw???????????????", AllChats)
+  console.log("all chats aouxa tw???????????????", AllChats)
 
   let isActive
   const { name, pic, _id: id } = user
@@ -60,8 +61,8 @@ export default function SingleMessageOfFriends({
     return <PageLoadingUI />
   }
   return (
-    <div className=" rounded-lg flex cursor-pointer items-center overflow-auto gap-2 bg-mybg hover:bg-mylightdark p-2 w-fit border-2  border-gray-600">
-      <div>
+    <div className=" rounded-lg flex cursor-pointer items-center overflow-auto gap-2 bg-mybg hover:bg-mylightdark p-2 min-w-60 justify-between border-2  border-gray-600">
+      <div className="flex  items-center gap-2">
         <img
           src={imageUrlConverter(pic)}
           height={40}
@@ -69,13 +70,15 @@ export default function SingleMessageOfFriends({
           alt="pp"
           className=" w-10 h-10 object-cover object-top  rounded-full"
         />
+        <div>
+          <h5 className=" text-white">{name}</h5>
+          <p className=" text-muted-foreground text-xs flex  items-center">
+            <Dot className=" text-gray-300 " /> <span>New message</span>
+            {/* {AllChats?.length > 0 && AllChats[AllChats?.length - 1]?.message} */}
+          </p>
+        </div>
       </div>
-      <div>
-        <h5 className=" text-white">{name}</h5>
-        <p className=" text-muted-foreground text-xs ">
-          {AllChats[AllChats?.length - 1]?.message}
-        </p>
-      </div>
+
       <div className=" ml-4">
         <div
           className={` h-2 w-2 ${isActive === undefined ? "bg-gray-400" : "bg-green-500"}  rounded-full`}

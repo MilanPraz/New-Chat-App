@@ -39,15 +39,15 @@ export default function SingleUser({ user }: { user: any }) {
     // toast.success("Added Sucessfully");
   }
   return (
-    <div className="  rounded-lg flex  justify-between cursor-pointer items-center overflow-auto gap-2 bg-mybg hover:bg-mylightdark p-2   w-[250px]">
+    <div className="  rounded-lg flex  justify-between cursor-pointer items-center overflow-auto gap-2 bg-mybg hover:bg-mylightdark p-2  w-[300px]">
       <div className=" flex items-center gap-3">
-        <div>
+        <div className=" flex-shrink-0">
           <Image
-            src={imageUrlConverter(pic)}
+            src={imageUrlConverter(pic) || "/placeholder.co"}
             height={40}
             width={40}
             alt="pp"
-            className=" w-10 h-10 object-cover object-top  rounded-full"
+            className=" object-cover object-top flex-shrink-0  rounded-full"
           />
         </div>
         <div>
