@@ -34,7 +34,7 @@ export default function MessagesList() {
     // console.log("soccket coonection")
 
     //add this user to the backend ko user array ma
-    socket.emit("addUser", user._id)
+    socket.emit("addUser", user?._id)
     // console.log("varkhar add gare ko use hai:", user._id)
 
     //list of all active usersd;
@@ -46,7 +46,7 @@ export default function MessagesList() {
     return () => {
       socket.off("getUsers") // Clean up listener on unmount
     }
-  }, [socket, user._id, activeUsers])
+  }, [socket, user?._id, activeUsers])
 
   // console.log("acive users session providers:", activeUsers)
 
@@ -55,8 +55,8 @@ export default function MessagesList() {
   function handleSetFriendDetail(user: any) {
     // console.log("friend detail", user.user)
     // console.log("chatidroom detail", user.chatId)
-    setFriend(user.user)
-    setChatRoomId(user.chatId)
+    setFriend(user?.user)
+    setChatRoomId(user?.chatId)
   }
 
   useEffect(() => {

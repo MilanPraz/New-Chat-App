@@ -1,7 +1,7 @@
 export const imageUrlConverter = (image: string) => {
   console.log("image kkkkkkk", image)
 
-  if (image.startsWith("http")) {
+  if (image?.startsWith("http")) {
     // console.log("image vitraaaaaaaaaa")
     return image
   } else {
